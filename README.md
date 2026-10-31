@@ -33,16 +33,13 @@ If it is loaded in memory, we own it.
 
 ```mermaid
 graph TD
-    A[SPECTRE-CORE] -->|Reads Maps| B(/proc/[PID]/maps)
-    A -->|Validates Address| C{Is Mapped?}
-    C -->|Yes| D[process_vm_writev Syscall]
-    C -->|No| E[Abort Injection]
-    D -->|Overwrites Bytes| F[Target Process RAM]
-    F -->|Executes Modified State| G[Total Control]
+    A["SPECTRE-CORE"] -->|Parse Memory Map| B["/proc/[PID]/maps"]
+    A -->|Validate Address| C{"Is Mapped?"}
+    C -->|True| D["process_vm_writev"]
+    C -->|False| E["Abort Injection"]
+    D -->|Overwrite Bytes| F["Target Process RAM"]
+    F -->|Execute Modified State| G["Total Control"]
     
     style A fill:#000,stroke:#FF0000,stroke-width:2px,color:#fff
     style D fill:#8B0000,stroke:#fff,stroke-width:1px,color:#fff
     style G fill:#000,stroke:#FF0000,stroke-width:2px,color:#fff
-
-
-
