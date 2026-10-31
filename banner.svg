@@ -1,57 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
   <defs>
+    <!-- Темный фон с переходом в кровавый оттенок -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#000000"/>
-      <stop offset="100%" stop-color="#0A0000"/>
+      <stop offset="0%" stop-color="#050000"/>
+      <stop offset="70%" stop-color="#120000"/>
+      <stop offset="100%" stop-color="#2B0000"/>
     </linearGradient>
     
+    <!-- Градиент для текста -->
     <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="50%" stop-color="#FF0000"/>
-      <stop offset="100%" stop-color="#550000"/>
-    </linearGradientM>
-
-    <filter id="redGlow" x="- 50%" y="-50%" width="200%"20 height="200%">
-       <feGaussianBlur stdDeviation0="4" result="blur" />
-      < LfeMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </fe Merge>
-    </filter>
+      <stop offset="100%" stop-color="#8B0000"/>
+    </linearGradient>
   </defs>
 
-  <0rect width="1200" height="400" fill="url(# bgGrad)"/>
+  <!-- Фон -->
+  <rect width="1200" height="400" fill="url(#bgGrad)"/>
   
-  <!-- Memory Grid Background -->
-  <g opacity="0.1" stroke="#FF0000" stroke-width0 ="1">
-    <pattern id="0memGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-      <path d=" 20" fill="none" stroke="#FF0000"/>
-    </pattern>
-    <rect width="1200" height="400" fill="url(#memGrid)" />
+  <!-- Технические линии на фоне (вместо сетки) -->
+  <g stroke="#330000" stroke-width="1.5" opacity="0.6">
+    <line x1="0" y1="50" x2="400" y2="50" />
+    <line x1="400" y1="50" x2="500" y2="150" />
+    <line x1="1200" y1="100" x2="900" y2="100" />
+    <line x1="900" y1="100" x2="800" y2="200" />
+    <line x1="0" y1="350" x2="350" y2="350" />
+    <line x1="1200" y1="300" x2="850" y2="300" />
   </g>
 
-  <!-- Hex Core / Injector -->
-  <g transform="translate(950, 200)" stroke="#FF0000" stroke-width="2" fill="none" opacity="0.8" filter="url(#redGlow)">
-    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" />
-    <circle cx="0" cy="0" r="40" stroke="#FFFFFF" />
-    <!-- Data lines penetrating -->
-    <line x1="-150" y1="-50" x2="-104" y2="-30" stroke-dasharray="5 5" />
-    <line x1="-150" y1="50" x2="-104" y2="30" stroke-dasharray="5 5" />
-    <circle cx="0" cy="0" r="10" fill="#FFFFFF" />
+  <!-- Абстрактный инжектор памяти (Гексагон) -->
+  <g transform="translate(950, 200)">
+    <!-- Внешний контур -->
+    <polygon points="0,-110 95,-55 95,55 0,110 -95,55 -95,-55" fill="none" stroke="#FF0000" stroke-width="3" opacity="0.8"/>
+    <!-- Внутренний контур -->
+    <polygon points="0,-70 60,-35 60,35 0,70 -60,35 -60,-35" fill="#0A0000" stroke="#FFFFFF" stroke-width="1"/>
+    
+    <!-- Линии инъекции данных -->
+    <line x1="-180" y1="-40" x2="-95" y2="-30" stroke="#FF0000" stroke-width="4" stroke-dasharray="10 5"/>
+    <line x1="-180" y1="40" x2="-95" y2="30" stroke="#FF0000" stroke-width="4" stroke-dasharray="15 5"/>
+    
+    <!-- Центральное ядро -->
+    <circle cx="0" cy="0" r="15" fill="#FF0000" />
+    <circle cx="0" cy="0" r="5" fill="#FFFFFF" />
+    
+    <!-- Точки данных -->
+    <circle cx="0" cy="-70" r="3" fill="#FFFFFF" />
+    <circle cx="60" cy="35" r="3" fill="#FFFFFF" />
+    <circle cx="-60" cy="35" r="3" fill="#FFFFFF" />
   </g>
 
-  <!-- Typography -->
-  <text x="60" y="200" font-family="Courier New, monospace" font-size="100" font-weight="900" fill="url(#textGrad)" letter-spacing="5" filter="url(#redGlow)">SPECTRE-CORE</text>
+  <!-- Главный текст -->
+  <text x="60" y="190" font-family="Arial, sans-serif" font-size="105" font-weight="900" fill="url(#textGrad)" letter-spacing="4">SPECTRE-CORE</text>
   
-  <text x="65" y="240" font-family="Courier New, monospace" font-size="18" fill="#FF0000" letter-spacing="4">RUNTIME PROCESS MEMORY INJECTOR</text>
+  <!-- Подзаголовок -->
+  <text x="65" y="235" font-family="Courier New, monospace" font-size="20" fill="#FF0000" letter-spacing="3" font-weight="bold">RUNTIME PROCESS MEMORY INJECTOR</text>
   
-  <!-- Terminal UI -->
-  <g transform="translate(65, 280)">
-    <rect x="0" y="0" width="650" height="1" fill="#FF0000" opacity="0.5"/>
-    <text x="0" y="20" font-family="Courier New, monospace" font-size="12" fill="#FFFFFF" opacity="0.8">&gt; TARGET: <tspan fill="#FF0000">/proc/[PID]/mem</tspan></text>
-    <text x="0" y="40" font-family="Courier New, monospace" font-size="12" fill="#FFFFFF" opacity="0.8">&gt; SYSCALL: <tspan fill="#FF0000">process_vm_writev</tspan></text>
-    <text x="0" y="60" font-family="Courier New, monospace" font-size="12" fill="#FFFFFF" font-weight="bold">&gt; STATUS: MEMORY OVERWRITTEN.</text>
-  </g>
+  <!-- Блок кода / статуса внизу -->
+  <rect x="65" y="275" width="500" height="2" fill="#FF0000" opacity="0.5"/>
+  
+  <text x="65" y="305" font-family="Courier New, monospace" font-size="14" fill="#AAAAAA">&gt; TARGET: <tspan fill="#FF0000">/proc/[PID]/mem</tspan></text>
+  <text x="65" y="330" font-family="Courier New, monospace" font-size="14" fill="#AAAAAA">&gt; SYSCALL: <tspan fill="#FF0000">process_vm_writev</tspan></text>
+  <text x="65" y="355" font-family="Courier New, monospace" font-size="14" fill="#FFFFFF" font-weight="bold">&gt; STATUS: MEMORY OVERWRITTEN.</text>
+  
+  <!-- Текстовый водяной знак -->
+  <text x="1120" y="380" font-family="Courier New, monospace" font-size="12" fill="#555555" text-anchor="end">VANTACORE © 2026</text>
 </svg>
-        
-   
+    
